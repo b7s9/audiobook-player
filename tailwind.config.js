@@ -19,13 +19,14 @@ module.exports = {
     },
     colors: {
       gray: colors.coolGray,
+      green: colors.emerald,
       blue: colors.lightBlue,
       red: colors.rose,
       pink: colors.fuchsia,
     },
     fontFamily: {
       sans: ['PT Sans', 'sans-serif'],
-      serif: ['Alegraya', 'serif'],
+      serif: ['Lora', 'Alegraya', 'PT Serif', 'serif'],
     },
     extend: {
       spacing: {
