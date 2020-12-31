@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import ReactHowler from 'react-howler'
-import raf from 'raf';
+import raf from 'raf' // requestAnimationFrame polyfill
+// import Button from '../components/Button'
 
-class Player extends Component {
-
+class Howl extends Component {
 	constructor(props) {
 		super(props)
 
@@ -27,11 +27,6 @@ class Player extends Component {
 		this.handleMouseDownSeek = this.handleMouseDownSeek.bind(this)
 		this.handleMouseUpSeek = this.handleMouseUpSeek.bind(this)
 		this.handleSeekingChange = this.handleSeekingChange.bind(this)
-	}
-
-	componentDidMount() {
-		ReactHowler.autoUnlock = true;
-		ReactHowler.html5PoolSize = 100;
 	}
 
 	componentWillUnmount() {
@@ -122,23 +117,11 @@ class Player extends Component {
 
 	render() {
 		return (
-			<div className="player">
-				<h2 className="font-bold">Name of Book</h2>
-				<h3><span>1. </span>Name of Chapter</h3>
-				<p>{(this.state.loaded) ? 'Loaded' : 'Loading'}</p>
-				<div className="container my-4 justify-between bg-gray-200 rounded">
-					<button onClick={this.handleToggle} id="play" className="p-4 bg-green-700 rounded font-bold text-white">{(this.state.playing) ? 'Pause' : 'Play'}</button>
-					{/* <button onClick={this.handleStop()} id="pause" className="p-4 bg-white rounded font-bold">Stop</button> */}
-				</div>
-				<div className="container my-4 place-content-between bg-gray-200 rounded">
-					{/* <button onClick={this.handleSeekingChange(-15)} id="rew" className="p-4 bg-white rounded font-bold">Rewind -15 sec.</button> */}
-					{/* <button onClick={this.handleSeekingChange(15)} id="fwd" className="p-4 bg-white rounded font-bold">Forward +15 sec.</button> */}
-				</div>
-
+			<div className='full-control'>
 				<ReactHowler
 					src={['audio/book-1/01-The-Boy-Who-Lived.mp3']}
-					playing={false}
 					html5={true}
+					// playing={this.state.playing}
 					onLoad={this.handleOnLoad}
 					onPlay={this.handleOnPlay}
 					onEnd={this.handleOnEnd}
@@ -147,9 +130,79 @@ class Player extends Component {
 					volume={this.state.volume}
 					ref={(ref) => (this.player = ref)}
 				/>
+
+				<p>{(this.state.loaded) ? 'Loaded' : 'Loading'}</p>
+
+				<div className='toggles'>
+					<label>
+						Loop:
+            		<input
+							type='checkbox'
+							checked={this.state.loop}
+							onChange={this.handleLoopToggle}
+						/>
+					</label>
+					<label>
+						Mute:
+            		<input
+							type='checkbox'
+							checked={this.state.mute}
+							onChange={this.handleMuteToggle}
+						/>
+					</label>
+				</div>
+
+				<p>
+					{'Status: '}
+					{this.state.seek.toFixed(2)}
+					{' / '}
+					{(this.state.duration) ? this.state.duration.toFixed(2) : 'NaN'}
+				</p>
+
+				<div className='volume'>
+					<label>
+						Volume:
+           				<span className='slider-container'>
+							<input
+								type='range'
+								min='0'
+								max='1'
+								step='.05'
+								value={this.state.volume}
+								onChange={e => this.setState({ volume: parseFloat(e.target.value) })}
+							/>
+						</span>
+						{this.state.volume.toFixed(2)}
+					</label>
+				</div>
+
+				<div className='seek'>
+					<label>
+						Seek:
+            				<span className='slider-container'>
+							<input
+								type='range'
+								min='0'
+								max={this.state.duration ? this.state.duration.toFixed(2) : 0}
+								step='.01'
+								value={this.state.seek}
+								onChange={this.handleSeekingChange}
+								onMouseDown={this.handleMouseDownSeek}
+								onMouseUp={this.handleMouseUpSeek}
+							/>
+						</span>
+					</label>
+				</div>
+
+				<button onClick={this.handleToggle}>
+					{(this.state.playing) ? 'Pause' : 'Play'}
+				</button>
+				<button onClick={this.handleStop}>
+					Stop
+       			</button>
 			</div>
 		)
 	}
 }
 
-export default Player; // Don’t forget to use export default!
+export default Howl
