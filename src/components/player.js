@@ -1,155 +1,193 @@
 import React, { Component } from 'react';
-import ReactHowler from 'react-howler'
-import raf from 'raf';
-
+import ReactPlayer from 'react-player'
 class Player extends Component {
-
-	constructor(props) {
-		super(props)
-
-		this.state = {
-			playing: false,
-			loaded: false,
-			loop: false,
-			mute: false,
-			volume: 1.0,
-			seek: 0.0,
-			isSeeking: false
-		}
-		this.handleToggle = this.handleToggle.bind(this)
-		this.handleOnLoad = this.handleOnLoad.bind(this)
-		this.handleOnEnd = this.handleOnEnd.bind(this)
-		this.handleOnPlay = this.handleOnPlay.bind(this)
-		this.handleStop = this.handleStop.bind(this)
-		this.renderSeekPos = this.renderSeekPos.bind(this)
-		this.handleLoopToggle = this.handleLoopToggle.bind(this)
-		this.handleMuteToggle = this.handleMuteToggle.bind(this)
-		this.handleMouseDownSeek = this.handleMouseDownSeek.bind(this)
-		this.handleMouseUpSeek = this.handleMouseUpSeek.bind(this)
-		this.handleSeekingChange = this.handleSeekingChange.bind(this)
+	state = {
+		url: null,
+		pip: false,
+		playing: false,
+		controls: false,
+		light: false,
+		volume: 0.8,
+		muted: false,
+		played: 0,
+		loaded: 0,
+		duration: 0,
+		playbackRate: 1.0,
+		loop: false
 	}
 
-	componentDidMount() {
-		ReactHowler.autoUnlock = true;
-		ReactHowler.html5PoolSize = 100;
-	}
-
-	componentWillUnmount() {
-		this.clearRAF()
-	}
-
-	handleToggle() {
+	load = url => {
 		this.setState({
-			playing: !this.state.playing
+			url,
+			played: 0,
+			loaded: 0,
+			pip: false
 		})
 	}
 
-	handleOnLoad() {
-		this.setState({
-			loaded: true,
-			duration: this.player.duration()
-		})
+	handlePlayPause = () => {
+		this.setState({ playing: !this.state.playing })
 	}
 
-	handleOnPlay() {
-		this.setState({
-			playing: true
-		})
-		this.renderSeekPos()
+	handleStop = () => {
+		this.setState({ url: null, playing: false })
 	}
 
-	handleOnEnd() {
+	handleToggleControls = () => {
+		const url = this.state.url
 		this.setState({
-			playing: false
-		})
-		this.clearRAF()
+			controls: !this.state.controls,
+			url: null
+		}, () => this.load(url))
 	}
 
-	handleStop() {
-		this.player.stop()
-		this.setState({
-			playing: false // Need to update our local state so we don't immediately invoke autoplay
-		})
-		this.renderSeekPos()
+	handleToggleLight = () => {
+		this.setState({ light: !this.state.light })
 	}
 
-	handleLoopToggle() {
-		this.setState({
-			loop: !this.state.loop
-		})
+	handleToggleLoop = () => {
+		this.setState({ loop: !this.state.loop })
 	}
 
-	handleMuteToggle() {
-		this.setState({
-			mute: !this.state.mute
-		})
+	handleVolumeChange = e => {
+		this.setState({ volume: parseFloat(e.target.value) })
 	}
 
-	handleMouseDownSeek() {
-		this.setState({
-			isSeeking: true
-		})
+	handleToggleMuted = () => {
+		this.setState({ muted: !this.state.muted })
 	}
 
-	handleMouseUpSeek(e) {
-		this.setState({
-			isSeeking: false
-		})
-
-		this.player.seek(e.target.value)
+	handleSetPlaybackRate = e => {
+		this.setState({ playbackRate: parseFloat(e.target.value) })
 	}
 
-	handleSeekingChange(e) {
-		this.setState({
-			seek: parseFloat(e.target.value)
-		})
+	handleTogglePIP = () => {
+		this.setState({ pip: !this.state.pip })
 	}
 
-	renderSeekPos() {
-		if (!this.state.isSeeking) {
-			this.setState({
-				seek: this.player.seek()
-			})
-		}
-		if (this.state.playing) {
-			this._raf = raf(this.renderSeekPos)
+	handlePlay = () => {
+		console.log('onPlay')
+		this.setState({ playing: true })
+	}
+
+	handleEnablePIP = () => {
+		console.log('onEnablePIP')
+		this.setState({ pip: true })
+	}
+
+	handleDisablePIP = () => {
+		console.log('onDisablePIP')
+		this.setState({ pip: false })
+	}
+
+	handlePause = () => {
+		console.log('onPause')
+		this.setState({ playing: false })
+	}
+
+	handleSeekMouseDown = e => {
+		this.setState({ seeking: true })
+	}
+
+	handleSeekChange = e => {
+		this.setState({ played: parseFloat(e.target.value) })
+	}
+
+	handleSeekMouseUp = e => {
+		this.setState({ seeking: false })
+		this.player.seekTo(parseFloat(e.target.value))
+	}
+
+	handleProgress = state => {
+		console.log('onProgress', state)
+		// We only want to update time slider if we are not currently seeking
+		if (!this.state.seeking) {
+			this.setState(state)
 		}
 	}
 
-	clearRAF() {
-		raf.cancel(this._raf)
+	handleEnded = () => {
+		console.log('onEnded')
+		this.setState({ playing: this.state.loop })
+	}
+
+	handleDuration = (duration) => {
+		console.log('onDuration', duration)
+		this.setState({ duration })
+	}
+
+	renderLoadButton = (url, label) => {
+		return (
+			<button onClick={() => this.load(url)}>
+				{label}
+			</button>
+		)
+	}
+
+	ref = player => {
+		this.player = player
 	}
 
 	render() {
+		const { url, playing, controls, light, volume, muted, loop, played, loaded, duration, playbackRate, pip } = this.state
+		const SEPARATOR = ' · ';
+
+		<div className='player-wrapper'>
+			<ReactPlayer
+				ref={this.ref}
+				className='react-player'
+				width='100%'
+				height='100%'
+				url={url}
+				pip={pip}
+				playing={playing}
+				controls={controls}
+				light={light}
+				loop={loop}
+				playbackRate={playbackRate}
+				volume={volume}
+				muted={muted}
+				onReady={() => console.log('onReady')}
+				onStart={() => console.log('onStart')}
+				onPlay={this.handlePlay}
+				onEnablePIP={this.handleEnablePIP}
+				onDisablePIP={this.handleDisablePIP}
+				onPause={this.handlePause}
+				onBuffer={() => console.log('onBuffer')}
+				onSeek={e => console.log('onSeek', e)}
+				onEnded={this.handleEnded}
+				onError={e => console.log('onError', e)}
+				onProgress={this.handleProgress}
+				onDuration={this.handleDuration}
+			/>
+		</div>
+
 		return (
 			<div className="player">
 				<h2 className="font-bold">Name of Book</h2>
 				<h3><span>1. </span>Name of Chapter</h3>
 				<p>{(this.state.loaded) ? 'Loaded' : 'Loading'}</p>
 				<div className="container my-4 justify-between bg-gray-200 rounded">
-					<button onClick={this.handleToggle} id="play" className="p-4 bg-green-700 rounded font-bold text-white">{(this.state.playing) ? 'Pause' : 'Play'}</button>
-					{/* <button onClick={this.handleStop()} id="pause" className="p-4 bg-white rounded font-bold">Stop</button> */}
+					{/* <button onClick={this.setState({ url: 'https://b7s9-static.nyc3.digitaloceanspaces.com/01-The-Boy-Who-Lived.mp3' })} className="p-4 bg-pink-300 rounded font-bold text-black">Load Chapter 1</button> */}
+					{this.renderLoadButton('https://b7s9-static.nyc3.digitaloceanspaces.com/01-The-Boy-Who-Lived.mp3', 'Chapter 1')}
+					<button onClick={this.handlePlayPause} className="p-4 bg-green-700 rounded font-bold text-white">{(this.state.playing) ? 'Pause' : 'Play'}</button>
 				</div>
 				<div className="container my-4 place-content-between bg-gray-200 rounded">
 					{/* <button onClick={this.handleSeekingChange(-15)} id="rew" className="p-4 bg-white rounded font-bold">Rewind -15 sec.</button> */}
 					{/* <button onClick={this.handleSeekingChange(15)} id="fwd" className="p-4 bg-white rounded font-bold">Forward +15 sec.</button> */}
 				</div>
 
-				<ReactHowler
-					src={['audio/book-1/01-The-Boy-Who-Lived.mp3']}
+				{/* <ReactPlayer
+					url={'https://b7s9-static.nyc3.digitaloceanspaces.com/01-The-Boy-Who-Lived.mp3'}
+					controls={true}
 					playing={false}
-					html5={true}
-					onLoad={this.handleOnLoad}
-					onPlay={this.handleOnPlay}
-					onEnd={this.handleOnEnd}
-					loop={this.state.loop}
-					mute={this.state.mute}
-					volume={this.state.volume}
-					ref={(ref) => (this.player = ref)}
-				/>
+					ref={this.ref}
+				></ReactPlayer> */}
+
 			</div>
 		)
 	}
 }
 
 export default Player; // Don’t forget to use export default!
+// this.load('https://b7s9-static.nyc3.digitaloceanspaces.com/01-The-Boy-Who-Lived.mp3')
