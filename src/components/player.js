@@ -189,8 +189,7 @@ class Player extends Component {
 					<div className='chapter-select py-4' >
 						<ChapterListing
 							bookIndex={this.state.bookIndex}
-						// bookState={this.state.book}
-						// handleBookChange={this.load}
+							chapterUrl={this.state.chapterUrl}
 						></ChapterListing>
 
 					</div>
