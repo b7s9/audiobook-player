@@ -1,0 +1,55 @@
+{
+	"series" : "Harry Potter",
+	"book": [
+		{
+			"title":"Harry Potter & the Philosopher's Stone",
+			"chapters":[
+				{
+					"number": 1,
+					"title": "The Boy Who Lived",
+					"url":"audio/book-1/01-The-Boy-Who-Lived.mp3"
+				},
+				{
+					"number": 2,
+					"title": "The Vanishing Glass",
+					"url":"audio/book-1/02-The-Vanishing-Glass.mp3"
+				},
+				{
+					"number": 3,
+					"title": "The Letters From No One",
+					"url":"audio/book-1/03-The-Letters-From-No-One.mp3"
+				},
+				{
+					"number": 4,
+					"title": "The Keeper Of The Keys",
+					"url":"audio/book-1/04-The-Keeper-Of-The-Keys.mp3"
+				}
+			]
+		},
+		{
+			"title":"Harry Potter & the Chamber of Secrets",
+			"chapters":[
+				{
+					"number": 1,
+					"title": "The Worst Birthday",
+					"url":"audio/book-2/01-The-Worst-Birthday.mp3"
+				},
+				{
+					"number": 2,
+					"title": "Dobby's Warning",
+					"url":"audio/book-1/02-Dobby's-Warning.mp3"
+				},
+				{
+					"number": 3,
+					"title": "The Burrow",
+					"url":"audio/book-1/03-The-Burrow.mp3"
+				},
+				{
+					"number": 4,
+					"title": "At Flourish And Blotts",
+					"url":"audio/book-1/04-At-Flourish-And-Blotts.mp3"
+				}
+			]
+		}
+	]
+}

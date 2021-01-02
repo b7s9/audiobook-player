@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactPlayer from 'react-player'
 import Duration from './duration'
+import ChapterListing from './chapter-listing'
+import data from '../data.json'
 
 class Player extends Component {
 	state = {
@@ -9,7 +11,7 @@ class Player extends Component {
 		playing: true,
 		controls: false,
 		light: false,
-		volume: 0.8,
+		volume: 0.6,
 		muted: false,
 		played: 0,
 		loaded: 0,
@@ -17,7 +19,20 @@ class Player extends Component {
 		playbackRate: 1.0,
 		loop: false,
 		devControls: false,
-		chapter: 0
+		bookIndex: 0,
+		bookTitle: '',
+		chapterIndex: 0,
+		chapterTitle: '',
+		chapterUrl: ''
+		// book: {
+		// 	index: 0,
+		// 	title: '',
+		// 	chapter: {
+		// 		index: 0,
+		// 		title: '',
+		// 		url: ''
+		// 	}
+		// }
 	}
 
 	handleToggleDevControls = () => {
@@ -35,6 +50,11 @@ class Player extends Component {
 
 	handlePlayPause = () => {
 		this.setState({ playing: !this.state.playing })
+	}
+
+	handlePlay = () => {
+		console.log('onPlay')
+		this.setState({ playing: true })
 	}
 
 	handleStop = () => {
@@ -71,11 +91,6 @@ class Player extends Component {
 
 	handleTogglePIP = () => {
 		this.setState({ pip: !this.state.pip })
-	}
-
-	handlePlay = () => {
-		console.log('onPlay')
-		this.setState({ playing: true })
 	}
 
 	handleEnablePIP = () => {
@@ -124,14 +139,33 @@ class Player extends Component {
 		this.setState({ duration })
 	}
 
-	renderLoadButton = (url, chapter, label) => {
+	// renderLoadButton = (url, chapter, label) => {
+	// 	return (
+	// 		<button
+	// 			key={chapter}
+	// 			className='mt-2 mr-2 px-4 py-2 block rounded shadow text-white bg-green-600 active:bg-green-700'
+	// 			onClick={() => this.load(url)}
+	// 		>
+	// 			{chapter + '. ' + label}
+	// 		</button>
+	// 	)
+	// }
+
+	renderBookButton = (index) => {
 		return (
 			<button
-				className='mt-2 mr-2 px-4 py-2 block rounded shadow text-white bg-green-600 active:bg-green-700'
-				onClick={() => this.load(url)}>
-				{chapter + '. ' + label}
+				key={index}
+				className='mt-2 mr-2 px-4 py-2 block rounded shadow text-white bg-pink-600 active:bg-pink-700'
+				onClick={() => this.handleBookChange(index)}
+			>
+				{index + '. ' + data.book[index].title}
 			</button>
 		)
+	}
+
+	handleBookChange = (index) => {
+		this.setState({ bookIndex: index })
+		this.setState({ bookTitle: data.book[index].title })
 	}
 
 	ref = player => {
@@ -146,14 +180,21 @@ class Player extends Component {
 			<div className='app'>
 
 				<section className='section'>
-					<h2 className="font-serif font-bold text-4xl">Harry Potter &amp; the Philosopher's Stone</h2>
+
+					{data.book.map((book, index) => {
+						return this.renderBookButton(index)
+					})}
+
+					<h2 className="font-serif font-bold text-4xl">{this.state.bookTitle.length > 0 ? this.state.bookTitle : 'No Book Selected'}</h2>
 					<div className='chapter-select py-4' >
-						{this.renderLoadButton('audio/book-1/01-The-Boy-Who-Lived.mp3', 1, 'The Boy Who Lived')}
-						{this.renderLoadButton('https://b7s9-static.nyc3.digitaloceanspaces.com/audio-book/02-The-Vanishing-Glass.mp3', 2, 'The Vanishing Glass')}
-						{this.renderLoadButton('https://b7s9-static.nyc3.digitaloceanspaces.com/audio-book/03-The-Letters-From-No-One.mp3', 3, 'The Letters From No One')}
-						{this.renderLoadButton('https://b7s9-static.nyc3.digitaloceanspaces.com/audio-book/04-The-Keeper-Of-The-Keys.mp3', 4, 'The Keeper of the Keys')}
+						<ChapterListing
+							bookIndex={this.state.bookIndex}
+						// bookState={this.state.book}
+						// handleBookChange={this.load}
+						></ChapterListing>
+
 					</div>
-					<h3 className='text-md'>No chapter selected</h3>
+					<h3 className='text-md'>{this.state.chapterTitle.length > 0 ? this.state.chapterTitle : 'No Chapter Selected'}</h3>
 					<div className='controls'>
 						<button
 							className='px-4 py-2 bg-blue-700 font-bold text-white text-lg rounded shadow hover:bg-blue-800'
@@ -180,15 +221,15 @@ class Player extends Component {
 							onReady={() => console.log('onReady')}
 							onStart={() => console.log('onStart')}
 							onPlay={this.handlePlay}
-							onEnablePIP={this.handleEnablePIP}
-							onDisablePIP={this.handleDisablePIP}
+							// onEnablePIP={this.handleEnablePIP}
+							// onDisablePIP={this.handleDisablePIP}
 							onPause={this.handlePause}
 							onBuffer={() => console.log('onBuffer')}
 							onSeek={e => console.log('onSeek', e)}
 							onEnded={this.handleEnded}
 							onError={e => console.log('onError', e)}
-							onProgress={this.handleProgress}
-							onDuration={this.handleDuration}
+						// onProgress={this.handleProgress}
+						// onDuration={this.handleDuration}
 						/>
 					</div>
 
