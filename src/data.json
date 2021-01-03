@@ -37,17 +37,17 @@
 				{
 					"number": 2,
 					"title": "Dobby's Warning",
-					"url":"audio/book-1/02-Dobby's-Warning.mp3"
+					"url":"audio/book-2/02-Dobby's-Warning.mp3"
 				},
 				{
 					"number": 3,
 					"title": "The Burrow",
-					"url":"audio/book-1/03-The-Burrow.mp3"
+					"url":"audio/book-2/03-The-Burrow.mp3"
 				},
 				{
 					"number": 4,
 					"title": "At Flourish And Blotts",
-					"url":"audio/book-1/04-At-Flourish-And-Blotts.mp3"
+					"url":"audio/book-2/04-At-Flourish-And-Blotts.mp3"
 				}
 			]
 		}

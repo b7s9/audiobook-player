@@ -5,43 +5,44 @@ import ChapterListing from './chapter-listing'
 import data from '../data.json'
 
 class Player extends Component {
-	state = {
-		url: null,
-		pip: false,
-		playing: true,
-		controls: false,
-		light: false,
-		volume: 0.6,
-		muted: false,
-		played: 0,
-		loaded: 0,
-		duration: 0,
-		playbackRate: 1.0,
-		loop: false,
-		devControls: false,
-		bookIndex: 0,
-		bookTitle: '',
-		chapterIndex: 0,
-		chapterTitle: '',
-		chapterUrl: ''
-		// book: {
-		// 	index: 0,
-		// 	title: '',
-		// 	chapter: {
-		// 		index: 0,
-		// 		title: '',
-		// 		url: ''
-		// 	}
-		// }
+	constructor(props) {
+		super(props)
+
+		this.loadChapter = this.loadChapter.bind(this); // allows me to use this down the inheritance chain
+
+		this.state = {
+			url: null,
+			pip: false,
+			playing: true,
+			controls: false,
+			light: false,
+			volume: 0.6,
+			muted: false,
+			played: 0,
+			loaded: 0,
+			duration: 0,
+			playbackRate: 1.0,
+			loop: false,
+			devControls: false,
+			bookIndex: 0,
+			bookTitle: '',
+			chapterIndex: 0,
+			chapterTitle: '',
+			chapterUrl: ''
+		}
 	}
+
+
 
 	handleToggleDevControls = () => {
 		this.setState({ devControls: !this.state.devControls })
 	}
 
-	load = url => {
+	loadChapter = (index) => {
 		this.setState({
-			url,
+			chapterIndex: index,
+			url: data.book[this.state.bookIndex].chapters[index].url,
+			chapterTitle: data.book[this.state.bookIndex].chapters[index].title,
 			played: 0,
 			loaded: 0,
 			pip: false
@@ -158,7 +159,7 @@ class Player extends Component {
 				className='mt-2 mr-2 px-4 py-2 block rounded shadow text-white bg-pink-600 active:bg-pink-700'
 				onClick={() => this.handleBookChange(index)}
 			>
-				{index + '. ' + data.book[index].title}
+				{parseInt(index + 1) + '. ' + data.book[index].title}
 			</button>
 		)
 	}
@@ -189,7 +190,7 @@ class Player extends Component {
 					<div className='chapter-select py-4' >
 						<ChapterListing
 							bookIndex={this.state.bookIndex}
-							chapterUrl={this.state.chapterUrl}
+							loadChapter={this.loadChapter}
 						></ChapterListing>
 
 					</div>
@@ -202,6 +203,7 @@ class Player extends Component {
 							{playing ? 'Pause' : 'Play'}
 						</button>
 					</div>
+
 					<div className='player-wrapper'>
 						<ReactPlayer
 							ref={this.ref}
