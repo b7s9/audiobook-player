@@ -13,7 +13,7 @@ class Player extends Component {
 		this.state = {
 			url: null,
 			pip: false,
-			playing: true,
+			playing: false,
 			controls: false,
 			light: false,
 			volume: 0.6,
@@ -156,7 +156,7 @@ class Player extends Component {
 		return (
 			<button
 				key={index}
-				className='mt-2 mr-2 px-4 py-2 block rounded shadow text-white bg-pink-600 active:bg-pink-700'
+				className='mt-2 mr-2 px-4 py-2 block rounded shadow text-white bg-pink-600 hover:bg-pink-700'
 				onClick={() => this.handleBookChange(index)}
 			>
 				{parseInt(index + 1) + '. ' + data.book[index].title}
@@ -186,7 +186,7 @@ class Player extends Component {
 						return this.renderBookButton(index)
 					})}
 
-					<h2 className="font-serif font-bold text-4xl">{this.state.bookTitle.length > 0 ? this.state.bookTitle : 'No Book Selected'}</h2>
+					<h2 className="font-serif font-bold text-4xl dark:text-gray-100">{this.state.bookTitle.length > 0 ? this.state.bookTitle : 'No Book Selected'}</h2>
 					<div className='chapter-select py-4' >
 						<ChapterListing
 							bookIndex={this.state.bookIndex}
@@ -194,7 +194,7 @@ class Player extends Component {
 						></ChapterListing>
 
 					</div>
-					<h3 className='text-md'>{this.state.chapterTitle.length > 0 ? this.state.chapterTitle : 'No Chapter Selected'}</h3>
+					<h3 className='text-md dark:text-white'>{this.state.chapterTitle.length > 0 ? this.state.chapterTitle : 'No Chapter Selected'}</h3>
 					<div className='controls'>
 						<button
 							className='px-4 py-2 bg-blue-700 font-bold text-white text-lg rounded shadow hover:bg-blue-800'
@@ -235,12 +235,12 @@ class Player extends Component {
 					</div>
 
 					<button
-						className="mt-8 px-4 py-2 bg-gray-100 font-bold rounded shadow"
+						className="mt-8 px-4 py-2 bg-gray-100 font-bold rounded shadow dark:hover:bg-gray-200"
 						onClick={this.handleToggleDevControls}
 					>{this.state.devControls ? 'Hide' : 'Show'} Dev Controls</button>
 
 				</section>
-				<div style={{ display: this.state.devControls ? 'block' : 'none' }}>
+				<div className='text-left dark:text-white' style={{ display: this.state.devControls ? 'block' : 'none' }}>
 					<table>
 						<tbody>
 							<tr>
