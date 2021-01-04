@@ -13,6 +13,7 @@ class AffirmationComposer extends Component {
 
 	saveAffirmationToLocalStorage = () => {
 		localStorage.setItem(this.props.storageKey, this.state.affirmation)
+		this.props.hideMe();
 	}
 
 	handleAffirmationChange = (e) => {

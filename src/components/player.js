@@ -178,9 +178,14 @@ class Player extends Component {
 
 		return (
 
-			<div className='app'>
+			<div className='mx-auto md:w-full lg:max-w-prose'>
 
-				<section className='section'>
+				<div>
+
+					<p className='text-md font-serif dark:text-gray-100'>
+						<span className='font-bold'>Bedtime thought: </span>
+						<span>{this.props.affirmation}</span>
+					</p>
 
 					{data.book.map((book, index) => {
 						return this.renderBookButton(index)
@@ -239,7 +244,7 @@ class Player extends Component {
 						onClick={this.handleToggleDevControls}
 					>{this.state.devControls ? 'Hide' : 'Show'} Dev Controls</button>
 
-				</section>
+				</div>
 				<div className='text-left dark:text-white' style={{ display: this.state.devControls ? 'block' : 'none' }}>
 					<table>
 						<tbody>
