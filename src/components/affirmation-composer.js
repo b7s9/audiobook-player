@@ -47,7 +47,7 @@ class AffirmationComposer extends Component {
 
 	render() {
 		return (
-			<div className="affirmation mx-auto md:w-full lg:max-w-prose">
+			<div className="affirmation mx-auto max-w-prose">
 				<h2 className='font-serif my-8 text-right font-bold text-xl text-gray-800 dark:text-gray-100'>Before you drift off...</h2>
 
 				<button
@@ -58,7 +58,7 @@ class AffirmationComposer extends Component {
 				</button>
 
 				<select
-					className='block w-full my-4 py-1 text-md dark:bg-gray-800 dark:text-gray-400'
+					className='block w-full my-4 py-1 text-md bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-gray-400'
 					value={this.state.selectedPrompt.index}
 					onChange={this.handlePromptSelection}
 				>
@@ -80,7 +80,7 @@ class AffirmationComposer extends Component {
 
 				<textarea
 					rows={4}
-					className='block my-4 p-4 w-full bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-white rounded
+					className='block my-4 p-4 w-full bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-white rounded
 					focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent'
 					placeholder='You did a great job today!'
 					onChange={this.handleAffirmationChange}
