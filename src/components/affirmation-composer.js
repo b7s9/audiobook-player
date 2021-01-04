@@ -6,8 +6,17 @@ class AffirmationComposer extends Component {
 		super(props)
 		this.prompts = Prompts.prompts
 		this.state = {
-			selectedPrompt: this.getRandomItemInArray(this.prompts)
+			selectedPrompt: this.getRandomItemInArray(this.prompts),
+			affirmation: ''
 		}
+	}
+
+	saveAffirmationToLocalStorage = () => {
+		localStorage.setItem(this.props.storageKey, this.state.affirmation)
+	}
+
+	handleAffirmationChange = (e) => {
+		this.setState({ affirmation: e.target.value })
 	}
 
 	handlePromptSelection = (e) => {
@@ -25,16 +34,6 @@ class AffirmationComposer extends Component {
 			selectedPrompt: randomPrompt
 		})
 	}
-
-	// renderPrompt = () => {
-	// 	this.setState({ selectedPrompt: this.getRandomItemInArray(this.prompts).item })
-	// 	console.log(this.state.selectedPrompt)
-	// 	return (
-	// 		<p>
-	// 			{}
-	// 		</p>
-	// 	)
-	// }
 
 	getRandomItemInArray = (arr) => {
 		const i = Math.floor(Math.random() * arr.length)
@@ -83,11 +82,13 @@ class AffirmationComposer extends Component {
 					className='block my-4 p-4 w-full bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-white rounded
 					focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent'
 					placeholder='You did a great job today!'
+					onChange={this.handleAffirmationChange}
 				>
 
 				</textarea>
 				<button
 					className='px-4 py-2 bg-blue-700 font-bold text-white text-lg rounded shadow hover:bg-blue-800'
+					onClick={this.saveAffirmationToLocalStorage}
 				>
 					Save
 				</button>
