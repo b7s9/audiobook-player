@@ -8,8 +8,6 @@ class Player extends Component {
 	constructor(props) {
 		super(props)
 
-		this.loadChapter = this.loadChapter.bind(this); // allows me to use this down the inheritance chain
-
 		this.state = {
 			url: null,
 			pip: false,
@@ -30,6 +28,11 @@ class Player extends Component {
 			chapterTitle: '',
 			chapterUrl: ''
 		}
+
+		this.loadChapter = this.loadChapter.bind(this); // allows me to use this down the inheritance chain
+
+		this.lastChapterKey = this.props.localStorageNamespace + '-lastChapter'
+		this.lastBookKey = this.props.localStorageNamespace + '-lastBook'
 	}
 
 
@@ -47,6 +50,11 @@ class Player extends Component {
 			loaded: 0,
 			pip: false
 		})
+
+		console.log('chapter index: ' + index)
+		console.log('chapter state: ' + this.state.chapterIndex)
+		// this.storeLastChapterInClient()
+
 	}
 
 	handlePlayPause = () => {
@@ -172,6 +180,34 @@ class Player extends Component {
 	ref = player => {
 		this.player = player
 	}
+
+	// getLastChapterFromClient = () => {
+	// 	let _chapterIndex = localStorage.getItem(this.lastChapterKey)
+	// 	let _bookIndex = localStorage.getItem(this.lastBookKey)
+
+	// 	if (_bookIndex) {
+	// 		console.log('book: ' + _bookIndex)
+	// 		this.handleBookChange(_bookIndex)
+	// 	} else {
+	// 		console.log('no book stored')
+	// 	}
+
+	// 	if (_chapterIndex) {
+	// 		console.log('chapter: ' + _chapterIndex)
+	// 		this.loadChapter(_chapterIndex)
+	// 	} else {
+	// 		console.log('no chapter stored')
+	// 	}
+	// }
+
+	// storeLastChapterInClient = () => {
+	// 	localStorage.setItem(this.lastBookKey, this.state.bookIndex)
+	// 	localStorage.setItem(this.lastChapterKey, this.state.chapterIndex)
+	// }
+
+	// componentDidMount() {
+	// 	this.getLastChapterFromClient()
+	// }
 
 	render() {
 		const { url, playing, controls, light, volume, muted, loop, played, loaded, duration, playbackRate, pip } = this.state // used for dev controls
