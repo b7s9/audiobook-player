@@ -160,16 +160,21 @@ class Player extends Component {
 	// 	)
 	// }
 
-	renderBookButton = (index) => {
+	renderBookOption = (index) => {
 		return (
-			<button
+			<option
 				key={index}
 				className='mt-2 mr-2 px-4 py-2 block rounded shadow text-white bg-pink-600 hover:bg-pink-700'
-				onClick={() => this.handleBookChange(index)}
+				value={index}
+			// onClick={() => this.handleBookChange(index)}
 			>
 				{parseInt(index + 1) + '. ' + data.book[index].title}
-			</button>
+			</option>
 		)
+	}
+
+	handleBookSelection = (e) => {
+		this.handleBookChange(e.target.value)
 	}
 
 	handleBookChange = (index) => {
@@ -218,14 +223,19 @@ class Player extends Component {
 
 				<div>
 
-					<p className='text-md font-serif dark:text-gray-100'>
+					<p className='mb-4 text-md font-serif dark:text-gray-100'>
 						<span className='font-bold'>Bedtime thought: </span>
 						<span>{this.props.affirmation}</span>
 					</p>
 
-					{data.book.map((book, index) => {
-						return this.renderBookButton(index)
-					})}
+					<select
+						className='my-4 p-2 bg-gray-100 dark:bg-gray-700 dark:text-gray-100'
+						onChange={this.handleBookSelection}
+					>
+						{data.book.map((book, index) => {
+							return this.renderBookOption(index)
+						})}
+					</select>
 
 					<h2 className="font-serif font-bold text-4xl dark:text-gray-100">{this.state.bookTitle.length > 0 ? this.state.bookTitle : 'No Book Selected'}</h2>
 					<div className='chapter-select py-4' >
