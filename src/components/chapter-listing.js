@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import data from '../data.json'
+import data from '../book-data.json'
 import ChapterLoadButton from './chapter-load-button'
 
 class ChapterListing extends Component {
@@ -13,8 +13,8 @@ class ChapterListing extends Component {
 			<div>
 				{data.book[this.props.bookIndex].chapters.map((chapter) => {
 					return <ChapterLoadButton
-						key={(chapter.number).toString()}
-						index={chapter.number}
+						key={(chapter.index).toString()}
+						index={chapter.index}
 						url={chapter.url}
 						title={chapter.title}
 						loadChapter={this.props.loadChapter}

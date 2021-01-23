@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ReactPlayer from 'react-player'
 import Duration from './duration'
 import ChapterListing from './chapter-listing'
-import data from '../data.json'
+import data from '../book-data.json'
 
 class Player extends Component {
 	constructor(props) {
@@ -44,13 +44,13 @@ class Player extends Component {
 	loadChapter = (index) => {
 		this.setState({
 			chapterIndex: index,
-			url: data.book[this.state.bookIndex].chapters[index].url,
+			url: data.baseMediaUrl + data.book[this.state.bookIndex].url + '/' + data.book[this.state.bookIndex].chapters[index].url,
 			chapterTitle: data.book[this.state.bookIndex].chapters[index].title,
 			played: 0,
 			loaded: 0,
 			pip: false
 		})
-
+		console.log('current url: ' + this.state.url)
 		console.log('chapter index: ' + index)
 		console.log('chapter state: ' + this.state.chapterIndex)
 		// this.storeLastChapterInClient()
@@ -229,7 +229,7 @@ class Player extends Component {
 					</p>
 
 					<select
-						className='my-4 p-2 bg-gray-100 dark:bg-gray-700 dark:text-gray-100'
+						className='my-4 p-2 pr-0 bg-gray-100 dark:bg-gray-700 dark:text-gray-100'
 						onChange={this.handleBookSelection}
 					>
 						{data.book.map((book, index) => {
@@ -441,4 +441,3 @@ class Player extends Component {
 }
 
 export default Player; // Don’t forget to use export default!
-// this.load('https://b7s9-static.nyc3.digitaloceanspaces.com/01-The-Boy-Who-Lived.mp3')
