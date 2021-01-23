@@ -8,9 +8,16 @@ class ChapterListing extends Component {
 		this.props.loadBook(this.props.bookIndex)
 	}
 
+	handleUrlChange = (e) => {
+		this.props.loadChapter(e.target.value - 1)
+	}
+
 	render() {
 		return (
-			<div>
+			<select
+				className='my-4 p-2 pr-0 bg-gray-100 dark:bg-gray-700 dark:text-gray-100'
+				onChange={this.handleUrlChange}
+			>
 				{data.book[this.props.bookIndex].chapters.map((chapter) => {
 					return <ChapterLoadButton
 						key={(chapter.index).toString()}
@@ -20,7 +27,7 @@ class ChapterListing extends Component {
 						loadChapter={this.props.loadChapter}
 					></ChapterLoadButton>
 				})}
-			</div>
+			</select>
 		)
 	}
 }
