@@ -1,7 +1,8 @@
 # Audio Player
 
-![affirmation screen](./screenshots/affirmation-screen.png)
-![player screen](./screenshots/player-screen.png)
+Dark Mode             |  Light Mode
+:-------------------------:|:-------------------------:
+![affirmation screen](./screenshots/affirmation-screen.png) |  ![player screen](./screenshots/player-screen.png)
 
 ## About
 
