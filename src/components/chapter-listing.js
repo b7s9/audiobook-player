@@ -15,7 +15,7 @@ class ChapterListing extends Component {
 	render() {
 		return (
 			<select
-				className='my-4 p-2 pr-0 bg-gray-100 dark:bg-gray-700 dark:text-gray-100'
+				className='w-full box-border my-4 p-2 pr-0 bg-gray-100 dark:bg-gray-700 dark:text-gray-100'
 				onChange={this.handleUrlChange}
 			>
 				{data.book[this.props.bookIndex].chapters.map((chapter) => {

@@ -229,7 +229,7 @@ class Player extends Component {
 					</p>
 
 					<select
-						className='my-4 p-2 pr-0 bg-gray-100 dark:bg-gray-700 dark:text-gray-100'
+						className='w-full my-4 p-2 bg-gray-100 dark:bg-gray-700 dark:text-gray-100'
 						onChange={this.handleBookSelection}
 					>
 						{data.book.map((book, index) => {
@@ -238,7 +238,7 @@ class Player extends Component {
 					</select>
 
 					<h2 className="font-serif font-bold text-4xl dark:text-gray-100">{this.state.bookTitle.length > 0 ? this.state.bookTitle : 'No Book Selected'}</h2>
-					<div className='chapter-select py-4' >
+					<div className='chapter-select py-4 w-full box-border' >
 						<ChapterListing
 							bookIndex={this.state.bookIndex}
 							loadChapter={this.loadChapter}
@@ -285,6 +285,33 @@ class Player extends Component {
 						/>
 					</div>
 
+					<div className="block mt-6 my-2 p-2 rounded bg-gray-100 dark:bg-gray-800 dark:text-gray-200">
+						<label htmlFor="volume" className="mr-2">Volume</label>
+						<input
+							className="dark:border-gray-500"
+							name="volume"
+							type='range'
+							min={0}
+							max={1}
+							step='any'
+							value={volume}
+							onChange={this.handleVolumeChange}
+						/>
+					</div>
+
+					<div className="block p-2 rounded bg-gray-100 dark:bg-gray-800 dark:text-gray-200">
+						<label htmlFor="seek" className="mr-2">Seek</label>
+						<input
+							className="dark:border-gray-500"
+							name="seek"
+							type='range' min={0} max={0.999999} step='any'
+							value={played}
+							onMouseDown={this.handleSeekMouseDown}
+							onChange={this.handleSeekChange}
+							onMouseUp={this.handleSeekMouseUp}
+						/>
+					</div>
+
 					<button
 						className="mt-8 px-4 py-2 bg-gray-100 font-bold rounded shadow dark:hover:bg-gray-200"
 						onClick={this.handleToggleDevControls}
@@ -294,46 +321,10 @@ class Player extends Component {
 				<div className='text-left dark:text-white' style={{ display: this.state.devControls ? 'block' : 'none' }}>
 					<table>
 						<tbody>
-							<tr>
-								<th>Controls</th>
-								<td>
-									<button onClick={this.handleStop}>Stop</button>
-									<button onClick={this.handlePlayPause}>{playing ? 'Pause' : 'Play'}</button>
-									{light &&
-										<button onClick={() => this.player.showPreview()}>Show preview</button>}
-									{ReactPlayer.canEnablePIP(url) &&
-										<button onClick={this.handleTogglePIP}>{pip ? 'Disable PiP' : 'Enable PiP'}</button>}
-								</td>
-							</tr>
-							<tr>
-								<th>Speed</th>
-								<td>
-									<button onClick={this.handleSetPlaybackRate} value={1}>1x</button>
-									<button onClick={this.handleSetPlaybackRate} value={1.5}>1.5x</button>
-									<button onClick={this.handleSetPlaybackRate} value={2}>2x</button>
-								</td>
-							</tr>
-							<tr>
-								<th>Seek</th>
-								<td>
-									<input
-										type='range' min={0} max={0.999999} step='any'
-										value={played}
-										onMouseDown={this.handleSeekMouseDown}
-										onChange={this.handleSeekChange}
-										onMouseUp={this.handleSeekMouseUp}
-									/>
-								</td>
-							</tr>
-							<tr>
-								<th>Volume</th>
-								<td>
-									<input type='range' min={0} max={1} step='any' value={volume} onChange={this.handleVolumeChange} />
-								</td>
-							</tr>
+
 							<tr>
 								<th>
-									<label htmlFor='controls'>Controls</label>
+									<label htmlFor='controls'>HTML Controls</label>
 								</th>
 								<td>
 									<input id='controls' type='checkbox' checked={controls} onChange={this.handleToggleControls} />
@@ -357,14 +348,6 @@ class Player extends Component {
 								</td>
 							</tr>
 							<tr>
-								<th>
-									<label htmlFor='light'>Light mode</label>
-								</th>
-								<td>
-									<input id='light' type='checkbox' checked={light} onChange={this.handleToggleLight} />
-								</td>
-							</tr>
-							<tr>
 								<th>Played</th>
 								<td><progress max={1} value={played} /></td>
 							</tr>
@@ -375,34 +358,10 @@ class Player extends Component {
 						</tbody>
 					</table>
 					<section className='section'>
-						<table>
-							<tbody>
-								<tr>
-									<th>Files</th>
-									<td>
-
-									</td>
-								</tr>
-								<tr>
-									<th>Custom URL</th>
-									<td>
-										<input ref={input => { this.urlInput = input }} type='text' placeholder='Enter URL' />
-										<button onClick={() => this.setState({ url: this.urlInput.value })}>Load</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-
 						<h2>State</h2>
 
 						<table>
 							<tbody>
-								<tr>
-									<th>url</th>
-									<td className={!url ? 'faded' : ''}>
-										{(url instanceof Array ? 'Multiple' : url) || 'null'}
-									</td>
-								</tr>
 								<tr>
 									<th>playing</th>
 									<td>{playing ? 'true' : 'false'}</td>
