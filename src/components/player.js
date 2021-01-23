@@ -50,9 +50,9 @@ class Player extends Component {
 			loaded: 0,
 			pip: false
 		})
-		console.log('current url: ' + this.state.url)
-		console.log('chapter index: ' + index)
-		console.log('chapter state: ' + this.state.chapterIndex)
+		// console.log('current url: ' + this.state.url)
+		// console.log('chapter index: ' + index)
+		// console.log('chapter state: ' + this.state.chapterIndex)
 		// this.storeLastChapterInClient()
 
 	}
@@ -62,7 +62,6 @@ class Player extends Component {
 	}
 
 	handlePlay = () => {
-		console.log('onPlay')
 		this.setState({ playing: true })
 	}
 
@@ -103,17 +102,14 @@ class Player extends Component {
 	}
 
 	handleEnablePIP = () => {
-		console.log('onEnablePIP')
 		this.setState({ pip: true })
 	}
 
 	handleDisablePIP = () => {
-		console.log('onDisablePIP')
 		this.setState({ pip: false })
 	}
 
 	handlePause = () => {
-		console.log('onPause')
 		this.setState({ playing: false })
 	}
 
@@ -131,7 +127,6 @@ class Player extends Component {
 	}
 
 	handleProgress = state => {
-		console.log('onProgress', state)
 		// We only want to update time slider if we are not currently seeking
 		if (!this.state.seeking) {
 			this.setState(state)
@@ -139,12 +134,10 @@ class Player extends Component {
 	}
 
 	handleEnded = () => {
-		console.log('onEnded')
 		this.setState({ playing: this.state.loop })
 	}
 
 	handleDuration = (duration) => {
-		console.log('onDuration', duration)
 		this.setState({ duration })
 	}
 
@@ -166,7 +159,6 @@ class Player extends Component {
 				key={index}
 				className='mt-2 mr-2 px-4 py-2 block rounded shadow text-white bg-pink-600 hover:bg-pink-700'
 				value={index}
-			// onClick={() => this.handleBookChange(index)}
 			>
 				{parseInt(index + 1) + '. ' + data.book[index].title}
 			</option>
@@ -270,18 +262,18 @@ class Player extends Component {
 							playbackRate={playbackRate}
 							volume={volume}
 							muted={muted}
-							onReady={() => console.log('onReady')}
-							onStart={() => console.log('onStart')}
+							// onReady={() => console.log('onReady')}
+							// onStart={() => console.log('onStart')}
 							onPlay={this.handlePlay}
 							// onEnablePIP={this.handleEnablePIP}
 							// onDisablePIP={this.handleDisablePIP}
 							onPause={this.handlePause}
-							onBuffer={() => console.log('onBuffer')}
-							onSeek={e => console.log('onSeek', e)}
+							// onBuffer={() => console.log('onBuffer')}
+							// onSeek={e => console.log('onSeek', e)}
+							// onError={e => console.log('onError', e)}
+							// onProgress={this.handleProgress}
+							// onDuration={this.handleDuration}
 							onEnded={this.handleEnded}
-							onError={e => console.log('onError', e)}
-						// onProgress={this.handleProgress}
-						// onDuration={this.handleDuration}
 						/>
 					</div>
 
@@ -399,4 +391,4 @@ class Player extends Component {
 	}
 }
 
-export default Player; // Don’t forget to use export default!
+export default Player;
