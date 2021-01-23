@@ -1,18 +1,18 @@
 {
-	"prompts":[		
-		"What compliment would your best friend say?",
-		"If your pet/stuffed animal could talk, what compliment would they say?",
-		"What compliment might your coworkers/clients say?",
-		"What do you need to hear right now?",
-		"If you could give anyone a hug right now, who would it be?",
-		"Did you do something you're proud of today?",
-		"Did you make/eat something tasty today?",
-		"Did you make/consume any cool art today?",
-		"Did you do something today that you've been putting off for a while?",
-		"Is there a habit you've been maintaining that you're proud of?",
-		"Did you wear a cool outfit today?",
-		"Did you contribute something to your community today?",
-		"Have you done anything socially draining today?",
-		"Did you do a favor for someone today?"
-	]
+    "prompts": [
+        "What compliment would your best friend say?",
+        "If your pet/stuffed animal could talk, what compliment would they say?",
+        "What compliment might your coworkers/clients say?",
+        "What do you need to hear right now?",
+        "If you could give anyone a hug right now, who would it be?",
+        "Did you do something you're proud of today?",
+        "Did you make/eat something tasty today?",
+        "Did you make/consume any cool art today?",
+        "Did you do something today that you've been putting off for a while?",
+        "Is there a habit you've been maintaining that you're proud of?",
+        "Did you wear a cool outfit today?",
+        "Did you contribute something to your community today?",
+        "Have you done anything socially draining today?",
+        "Did you do a favor for someone today?"
+    ]
 }
