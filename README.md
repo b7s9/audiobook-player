@@ -8,6 +8,7 @@
 This is an audio book player made for a friend and I to use to fall asleep to. The user must first enter a positive affirmation, which will be displayed above the audio player. Different books and chapters can be selected for playback. Supports user preferred color scheme.
 
 Uses:
+
 - React
 - [Tailwind Css](https://github.com/tailwindlabs/tailwindcss)
 - [React Player](https://github.com/cookpete/react-player)
@@ -43,18 +44,18 @@ Copy the generated JSON data from `out.txt` into a file in this project `src/boo
       "title": "First Book Title",
       "url": "This_is-the-Directory-Name",
       "chapters": [
-		  // out.txt goes here
-	  ]
-	},
-	{
+        // out.txt goes here
+      ]
+    },
+    {
       "title": "Second Book Title",
       "url": "This_is-the-second-Directory-Name",
       "chapters": [
-		  // out.txt goes here
-	  ]
-	}
+        // out.txt goes here
+      ]
+    }
+  ]
 }
-
 ```
 
 Future versions of the ETL will handle book titles and urls, but for the meantime, that data has to be manually entered. Remember trailing commas are not valid in JSON.
