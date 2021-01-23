@@ -48,7 +48,7 @@ class AffirmationComposer extends Component {
 	render() {
 		return (
 			<div className="affirmation mx-auto max-w-prose">
-				<h2 className='font-serif my-8 text-right font-bold text-xl text-gray-800 dark:text-gray-100'>Before you drift off...</h2>
+				<h2 className='font-serif my-6 text-right font-bold text-xl text-gray-800 dark:text-gray-100'>Before you drift off...</h2>
 
 				<button
 					className='bg-gray-800 text-gray-200 capitalize px-4 py-1 text-sm rounded shadow hover:bg-black'
@@ -93,6 +93,12 @@ class AffirmationComposer extends Component {
 				>
 					Save
 				</button>
+
+				<picture className="w-1/2 mx-auto block mt-4">
+					<source media="(prefers-color-scheme:dark)" srcset="logo-light.png" />
+					<source media="(prefers-color-scheme:light)" srcset="logo-dark.png" />
+					<img src="logo-light.png" alt="Logo" />
+				</picture>
 			</div>
 		)
 	}
