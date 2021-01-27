@@ -48,9 +48,8 @@ class Player extends Component {
                 '/' +
                 data.book[this.state.bookIndex].chapters[index].url,
             chapterTitle: data.book[this.state.bookIndex].chapters[index].title,
-            played: 0,
-            loaded: 0,
-            pip: false,
+            // played: 0,
+            // loaded: 0,
         })
         // console.log('current url: ' + this.state.url)
         // console.log('chapter index: ' + index)
@@ -145,18 +144,6 @@ class Player extends Component {
         this.setState({ duration })
     }
 
-    // renderLoadButton = (url, chapter, label) => {
-    // 	return (
-    // 		<button
-    // 			key={chapter}
-    // 			className='mt-2 mr-2 px-4 py-2 block rounded shadow text-white bg-green-600 active:bg-green-700'
-    // 			onClick={() => this.load(url)}
-    // 		>
-    // 			{chapter + '. ' + label}
-    // 		</button>
-    // 	)
-    // }
-
     renderBookOption = (index) => {
         return (
             <option
@@ -176,6 +163,17 @@ class Player extends Component {
     handleBookChange = (index) => {
         this.setState({ bookIndex: index })
         this.setState({ bookTitle: data.book[index].title })
+    }
+
+    handleSkipForward = () => {
+        // this.setState({ played: this.state.played + 0.01 })
+        const currentTime = this.player.getCurrentTime()
+        this.player.seekTo(currentTime + 13)
+    }
+
+    handleSkipBack = () => {
+        const currentTime = this.player.getCurrentTime()
+        this.player.seekTo(currentTime - 13)
     }
 
     ref = (player) => {
@@ -224,7 +222,7 @@ class Player extends Component {
             duration,
             playbackRate,
             pip,
-        } = this.state // used for dev controls
+        } = this.state
 
         return (
             <div className="mx-auto md:w-full lg:max-w-prose">
@@ -262,6 +260,20 @@ class Player extends Component {
                         >
                             {playing ? 'Pause' : 'Play'}
                         </button>
+
+                        <button
+                            className="px-4 py-2 bg-green-700 font-bold text-white text-lg rounded shadow hover:bg-green-800"
+                            onClick={this.handleSkipBack}
+                        >
+                            -15 sec.
+                        </button>
+
+                        <button
+                            className="px-4 py-2 bg-green-700 font-bold text-white text-lg rounded shadow hover:bg-green-800"
+                            onClick={this.handleSkipForward}
+                        >
+                            +15 sec.
+                        </button>
                     </div>
 
                     <div className="player-wrapper">
@@ -281,16 +293,14 @@ class Player extends Component {
                             muted={muted}
                             // onReady={() => console.log('onReady')}
                             // onStart={() => console.log('onStart')}
-                            onPlay={this.handlePlay}
-                            // onEnablePIP={this.handleEnablePIP}
-                            // onDisablePIP={this.handleDisablePIP}
-                            onPause={this.handlePause}
+                            // onPlay={this.handlePlay}
+                            // onPause={this.handlePause}
                             // onBuffer={() => console.log('onBuffer')}
-                            // onSeek={e => console.log('onSeek', e)}
-                            // onError={e => console.log('onError', e)}
+                            // onSeek={(e) => console.log('onSeek', e)}
+                            // onError={(e) => console.log('onError', e)}
                             // onProgress={this.handleProgress}
                             // onDuration={this.handleDuration}
-                            onEnded={this.handleEnded}
+                            // onEnded={this.handleEnded}
                         />
                     </div>
 
@@ -323,8 +333,10 @@ class Player extends Component {
                             step="any"
                             value={played}
                             onMouseDown={this.handleSeekMouseDown}
+                            onTouchStart={this.handleSeekMouseDown}
                             onChange={this.handleSeekChange}
                             onMouseUp={this.handleSeekMouseUp}
+                            onTouchEnd={this.handleSeekMouseUp}
                         />
                     </div>
 
