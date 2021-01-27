@@ -38,7 +38,6 @@ class AffirmationComposer extends Component {
 
     getRandomItemInArray = (arr) => {
         const i = Math.floor(Math.random() * arr.length)
-        console.log(arr[i])
         return {
             value: arr[i],
             index: i,
@@ -83,13 +82,13 @@ class AffirmationComposer extends Component {
                     onChange={this.handleAffirmationChange}
                 ></textarea>
                 <button
-                    className="px-4 py-2 bg-blue-700 font-bold text-white text-lg rounded shadow hover:bg-blue-800"
+                    className="px-4 py-2 bg-blue-700 font-bold text-white text-lg rounded shadow hover:bg-blue-800 active:bg-blue-500"
                     onClick={this.saveAffirmationToLocalStorage}
                 >
                     Save
                 </button>
 
-                <picture className="w-1/2 mx-auto block mt-4">
+                <picture className="w-1/2 mx-auto block mt-6">
                     <source media="(prefers-color-scheme:dark)" srcSet="logo-light.png" />
                     <source media="(prefers-color-scheme:light)" srcSet="logo-dark.png" />
                     <img src="logo-light.png" alt="Logo" />
