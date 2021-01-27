@@ -90,8 +90,8 @@ class AffirmationComposer extends Component {
                 </button>
 
                 <picture className="w-1/2 mx-auto block mt-4">
-                    <source media="(prefers-color-scheme:dark)" srcset="logo-light.png" />
-                    <source media="(prefers-color-scheme:light)" srcset="logo-dark.png" />
+                    <source media="(prefers-color-scheme:dark)" srcSet="logo-light.png" />
+                    <source media="(prefers-color-scheme:light)" srcSet="logo-dark.png" />
                     <img src="logo-light.png" alt="Logo" />
                 </picture>
             </div>
