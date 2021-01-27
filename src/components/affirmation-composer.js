@@ -51,26 +51,28 @@ class AffirmationComposer extends Component {
                     Before you drift off...
                 </h2>
 
-                <button
-                    className="bg-gray-800 text-gray-200 capitalize px-4 py-1 text-sm rounded shadow hover:bg-black"
-                    onClick={this.getRandomPrompt}
-                >
-                    Random prompt
-                </button>
+                <div className="w-full flex justify-between my-4">
+                    <button
+                        className="capitalize px-4 py-1 text-sm rounded shadow bg-gray-800 text-gray-200 hover:bg-gray-600"
+                        onClick={this.getRandomPrompt}
+                    >
+                        Random prompt
+                    </button>
 
-                <select
-                    className="block w-full my-4 py-1 text-md bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-gray-400"
-                    value={this.state.selectedPrompt.index}
-                    onChange={this.handlePromptSelection}
-                >
-                    {this.prompts.map((prompt, index) => {
-                        return (
-                            <option key={index} value={index}>
-                                {prompt}
-                            </option>
-                        )
-                    })}
-                </select>
+                    <select
+                        className="w-1/3 py-1 text-md bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-gray-400"
+                        value={this.state.selectedPrompt.index}
+                        onChange={this.handlePromptSelection}
+                    >
+                        {this.prompts.map((prompt, index) => {
+                            return (
+                                <option key={index} value={index}>
+                                    {prompt}
+                                </option>
+                            )
+                        })}
+                    </select>
+                </div>
 
                 <p className="text-xl dark:text-gray-300">{this.state.selectedPrompt.value}</p>
 
