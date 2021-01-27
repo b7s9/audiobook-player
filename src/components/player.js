@@ -204,9 +204,11 @@ class Player extends Component {
     // 	localStorage.setItem(this.lastChapterKey, this.state.chapterIndex)
     // }
 
-    // componentDidMount() {
-    // 	this.getLastChapterFromClient()
-    // }
+    componentDidMount() {
+        // this.getLastChapterFromClient()
+        this.handleBookChange(this.state.bookIndex)
+        this.loadChapter(this.state.chapterIndex)
+    }
 
     render() {
         const {
@@ -250,104 +252,111 @@ class Player extends Component {
                             loadChapter={this.loadChapter}
                         ></ChapterListing>
                     </div>
-                    <h3 className="text-md dark:text-white">
-                        {this.state.chapterTitle.length > 0 ? this.state.chapterTitle : 'No Chapter Selected'}
-                    </h3>
-                    <div className="controls flex justify-center">
-                        <button
-                            className="px-4 py-2 font-bold text-3xl rounded shadow text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400 active:text-blue-500"
-                            onClick={this.handleSkipBack}
-                        >
-                            <div className="block">
-                                <i className="ci-fast_rewind"></i>
-                            </div>
-                            <div className="block text-sm">-15 sec.</div>
-                        </button>
 
-                        <button
-                            className="px-4 py-2 font-bold text-6xl rounded shadow text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400 active:text-green-500"
-                            onClick={this.handlePlayPause}
-                        >
-                            {playing ? <i className="ci-pause_circle_outline"></i> : <i className="ci-play_arrow"></i>}
-                        </button>
+                    <div className="md:my-4 lg:my-6 xl:my-8 2xl:my-14">
+                        <h3 className="text-lg text-center dark:text-white">
+                            {this.state.chapterTitle.length > 0 ? this.state.chapterTitle : 'No Chapter Selected'}
+                        </h3>
+                        <div className="controls flex justify-center">
+                            <button
+                                className="px-6 py-4 font-bold text-3xl rounded shadow text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400 active:text-blue-500"
+                                onClick={this.handleSkipBack}
+                            >
+                                <div className="block">
+                                    <i className="ci-fast_rewind"></i>
+                                </div>
+                                <div className="block text-sm">-15 sec.</div>
+                            </button>
 
-                        <button
-                            className="px-4 py-2 font-bold text-3xl rounded shadow text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400 active:text-blue-500"
-                            onClick={this.handleSkipForward}
-                        >
-                            <div className="block">
-                                <i className="ci-fast_forward"></i>
-                            </div>
-                            <div className="block text-sm">+15 sec.</div>
-                        </button>
-                    </div>
+                            <button
+                                className="px-6 py-4 font-bold text-6xl rounded shadow text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400 active:text-green-500"
+                                onClick={this.handlePlayPause}
+                            >
+                                {playing ? (
+                                    <i className="ci-pause_circle_outline"></i>
+                                ) : (
+                                    <i className="ci-play_arrow"></i>
+                                )}
+                            </button>
 
-                    <div className="player-wrapper">
-                        <ReactPlayer
-                            ref={this.ref}
-                            className="react-player"
-                            width="100%"
-                            height="100%"
-                            url={url}
-                            pip={pip}
-                            playing={playing}
-                            controls={controls}
-                            light={light}
-                            loop={loop}
-                            playbackRate={playbackRate}
-                            volume={volume}
-                            muted={muted}
-                            // onReady={() => console.log('onReady')}
-                            // onStart={() => console.log('onStart')}
-                            // onPlay={this.handlePlay}
-                            // onPause={this.handlePause}
-                            // onBuffer={() => console.log('onBuffer')}
-                            // onSeek={(e) => console.log('onSeek', e)}
-                            // onError={(e) => console.log('onError', e)}
-                            // onProgress={this.handleProgress}
-                            // onDuration={this.handleDuration}
-                            // onEnded={this.handleEnded}
-                        />
-                    </div>
+                            <button
+                                className="px-6 py-4 font-bold text-3xl rounded shadow text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400 active:text-blue-500"
+                                onClick={this.handleSkipForward}
+                            >
+                                <div className="block">
+                                    <i className="ci-fast_forward"></i>
+                                </div>
+                                <div className="block text-sm">+15 sec.</div>
+                            </button>
+                        </div>
 
-                    <div className="block mt-6 my-2 p-2 rounded bg-gray-100 dark:bg-gray-800 dark:text-gray-200">
-                        <label htmlFor="volume" className="mr-2">
-                            Volume
-                        </label>
-                        <input
-                            className="dark:border-gray-500"
-                            name="volume"
-                            type="range"
-                            min={0}
-                            max={1}
-                            step="any"
-                            value={volume}
-                            onChange={this.handleVolumeChange}
-                        />
-                    </div>
+                        <div className="player-wrapper">
+                            <ReactPlayer
+                                ref={this.ref}
+                                className="react-player"
+                                width="100%"
+                                height="100%"
+                                url={url}
+                                pip={pip}
+                                playing={playing}
+                                controls={controls}
+                                light={light}
+                                loop={loop}
+                                playbackRate={playbackRate}
+                                volume={volume}
+                                muted={muted}
+                                // onReady={() => console.log('onReady')}
+                                // onStart={() => console.log('onStart')}
+                                // onPlay={this.handlePlay}
+                                // onPause={this.handlePause}
+                                // onBuffer={() => console.log('onBuffer')}
+                                // onSeek={(e) => console.log('onSeek', e)}
+                                // onError={(e) => console.log('onError', e)}
+                                // onProgress={this.handleProgress}
+                                // onDuration={this.handleDuration}
+                                // onEnded={this.handleEnded}
+                            />
+                        </div>
 
-                    <div className="block p-2 rounded bg-gray-100 dark:bg-gray-800 dark:text-gray-200">
-                        <label htmlFor="seek" className="mr-2">
-                            Seek
-                        </label>
-                        <input
-                            className="dark:border-gray-500"
-                            name="seek"
-                            type="range"
-                            min={0}
-                            max={0.999999}
-                            step="any"
-                            value={played}
-                            onMouseDown={this.handleSeekMouseDown}
-                            onTouchStart={this.handleSeekMouseDown}
-                            onChange={this.handleSeekChange}
-                            onMouseUp={this.handleSeekMouseUp}
-                            onTouchEnd={this.handleSeekMouseUp}
-                        />
+                        <div className="flex justify-between w-full sm:w-1/2 mx-auto mt-6 my-2 p-2 rounded bg-gray-100 dark:bg-gray-800 dark:text-gray-200">
+                            <label htmlFor="volume" className="mr-2">
+                                Volume
+                            </label>
+                            <input
+                                className="dark:border-gray-500"
+                                name="volume"
+                                type="range"
+                                min={0}
+                                max={1}
+                                step="any"
+                                value={volume}
+                                onChange={this.handleVolumeChange}
+                            />
+                        </div>
+
+                        <div className="flex justify-between w-full sm:w-1/2 mx-auto p-2 rounded bg-gray-100 dark:bg-gray-800 dark:text-gray-200">
+                            <label htmlFor="seek" className="mr-2">
+                                Seek
+                            </label>
+                            <input
+                                className="dark:border-gray-500"
+                                name="seek"
+                                type="range"
+                                min={0}
+                                max={0.999999}
+                                step="any"
+                                value={played}
+                                onMouseDown={this.handleSeekMouseDown}
+                                onTouchStart={this.handleSeekMouseDown}
+                                onChange={this.handleSeekChange}
+                                onMouseUp={this.handleSeekMouseUp}
+                                onTouchEnd={this.handleSeekMouseUp}
+                            />
+                        </div>
                     </div>
 
                     <button
-                        className="mt-8 px-4 py-2 bg-gray-100 font-bold rounded shadow dark:hover:bg-gray-200"
+                        className="mt-8 px-4 py-2 font-bold rounded shadow dark:bg-gray-100 dark:hover:bg-gray-200 active:bg-blue-500"
                         onClick={this.handleToggleDevControls}
                     >
                         {this.state.devControls ? 'Hide' : 'Show'} Dev Controls
