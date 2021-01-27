@@ -54,10 +54,10 @@ module.exports = {
     },
     variants: {
         extend: {
-            borderColor: ['focus-visible'],
+            borderColor: ['focus-visible', 'checked'],
             opacity: ['disabled'],
             textColor: ['active'],
-            backgroundColor: ['active'],
+            backgroundColor: ['active', 'checked'],
         },
     },
 }

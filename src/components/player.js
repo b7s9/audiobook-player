@@ -368,28 +368,15 @@ class Player extends Component {
                         display: this.state.devControls ? 'block' : 'none',
                     }}
                 >
-                    <table>
+                    <table className="mt-4">
                         <tbody>
-                            <tr>
-                                <th>
-                                    <label htmlFor="controls">HTML Controls</label>
-                                </th>
-                                <td>
-                                    <input
-                                        id="controls"
-                                        type="checkbox"
-                                        checked={controls}
-                                        onChange={this.handleToggleControls}
-                                    />
-                                    <em>&nbsp; Requires player reload</em>
-                                </td>
-                            </tr>
-                            <tr>
+                            <tr className="my-2">
                                 <th>
                                     <label htmlFor="muted">Muted</label>
                                 </th>
                                 <td>
                                     <input
+                                        className="form-tick appearance-none h-4 w-4 border border-gray-300 dark:border-gray-500 rounded checked:bg-green-600 checked:border-transparent focus:outline-none"
                                         id="muted"
                                         type="checkbox"
                                         checked={muted}
@@ -397,12 +384,18 @@ class Player extends Component {
                                     />
                                 </td>
                             </tr>
-                            <tr>
+                            <tr className="my-2">
                                 <th>
                                     <label htmlFor="loop">Loop</label>
                                 </th>
                                 <td>
-                                    <input id="loop" type="checkbox" checked={loop} onChange={this.handleToggleLoop} />
+                                    <input
+                                        className="form-tick appearance-none h-4 w-4 border border-gray-300 dark:border-gray-500 rounded checked:bg-green-600 checked:border-transparent focus:outline-none"
+                                        id="loop"
+                                        type="checkbox"
+                                        checked={loop}
+                                        onChange={this.handleToggleLoop}
+                                    />
                                 </td>
                             </tr>
                             <tr>
