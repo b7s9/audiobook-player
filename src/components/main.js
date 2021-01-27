@@ -15,7 +15,7 @@ class Main extends Component {
         this.affirmationKey = this.localStorageNamespace + '-affirmation'
     }
 
-    showAffirmationComposer = () => {
+    hideAffirmationComposer = () => {
         this.setState({ showPlayer: true, affirmation: localStorage.getItem(this.affirmationKey) })
     }
 
@@ -33,7 +33,7 @@ class Main extends Component {
             page = (
                 <AffirmationComposer
                     storageKey={this.affirmationKey}
-                    hideMe={this.showAffirmationComposer}
+                    hideMe={this.hideAffirmationComposer}
                 ></AffirmationComposer>
             )
         }
