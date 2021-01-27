@@ -148,7 +148,7 @@ class Player extends Component {
         return (
             <option
                 key={index}
-                className="mt-2 mr-2 px-4 py-2 block rounded shadow text-white bg-pink-600 hover:bg-pink-700"
+                className="mt-2 mr-2 px-4 py-2 block rounded shadow bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-gray-400"
                 value={index}
             >
                 {parseInt(index + 1) + '. ' + data.book[index].title}
@@ -253,26 +253,32 @@ class Player extends Component {
                     <h3 className="text-md dark:text-white">
                         {this.state.chapterTitle.length > 0 ? this.state.chapterTitle : 'No Chapter Selected'}
                     </h3>
-                    <div className="controls">
+                    <div className="controls flex justify-center">
                         <button
-                            className="px-4 py-2 bg-blue-700 font-bold text-white text-lg rounded shadow hover:bg-blue-800"
-                            onClick={this.handlePlayPause}
-                        >
-                            {playing ? 'Pause' : 'Play'}
-                        </button>
-
-                        <button
-                            className="px-4 py-2 bg-green-700 font-bold text-white text-lg rounded shadow hover:bg-green-800"
+                            className="px-4 py-2 font-bold text-3xl rounded shadow text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400 active:text-blue-500"
                             onClick={this.handleSkipBack}
                         >
-                            -15 sec.
+                            <div className="block">
+                                <i className="ci-fast_rewind"></i>
+                            </div>
+                            <div className="block text-sm">-15 sec.</div>
                         </button>
 
                         <button
-                            className="px-4 py-2 bg-green-700 font-bold text-white text-lg rounded shadow hover:bg-green-800"
+                            className="px-4 py-2 font-bold text-6xl rounded shadow text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400 active:text-green-500"
+                            onClick={this.handlePlayPause}
+                        >
+                            {playing ? <i className="ci-pause_circle_outline"></i> : <i className="ci-play_arrow"></i>}
+                        </button>
+
+                        <button
+                            className="px-4 py-2 font-bold text-3xl rounded shadow text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400 active:text-blue-500"
                             onClick={this.handleSkipForward}
                         >
-                            +15 sec.
+                            <div className="block">
+                                <i className="ci-fast_forward"></i>
+                            </div>
+                            <div className="block text-sm">+15 sec.</div>
                         </button>
                     </div>
 
