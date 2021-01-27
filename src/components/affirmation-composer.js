@@ -52,13 +52,6 @@ class AffirmationComposer extends Component {
                 </h2>
 
                 <div className="w-full flex justify-between my-4">
-                    <button
-                        className="capitalize px-4 py-1 text-sm rounded shadow bg-gray-800 text-gray-200 hover:bg-gray-600"
-                        onClick={this.getRandomPrompt}
-                    >
-                        Random prompt
-                    </button>
-
                     <select
                         className="w-1/3 py-1 text-md bg-gray-200 text-gray-900 dark:bg-gray-800 dark:text-gray-400"
                         value={this.state.selectedPrompt.index}
@@ -72,6 +65,13 @@ class AffirmationComposer extends Component {
                             )
                         })}
                     </select>
+
+                    <button
+                        className="capitalize px-4 py-1 text-sm rounded shadow bg-gray-800 text-gray-200 hover:bg-gray-600"
+                        onClick={this.getRandomPrompt}
+                    >
+                        Random prompt
+                    </button>
                 </div>
 
                 <p className="text-xl dark:text-gray-300">{this.state.selectedPrompt.value}</p>
