@@ -235,7 +235,7 @@ class Player extends Component {
                     </p>
 
                     <select
-                        className="w-full my-4 p-2 bg-gray-100 dark:bg-gray-700 dark:text-gray-100"
+                        className="w-full my-4 p-2 bg-gray-200 dark:bg-gray-700 dark:text-gray-100"
                         onChange={this.handleBookSelection}
                     >
                         {data.book.map((book, index) => {
@@ -259,7 +259,7 @@ class Player extends Component {
                         </h3>
                         <div className="controls flex justify-center">
                             <button
-                                className="px-6 py-4 font-bold text-3xl rounded shadow text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400 active:text-blue-500"
+                                className="px-6 py-4 font-bold text-3xl rounded text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400 active:text-blue-500"
                                 onClick={this.handleSkipBack}
                             >
                                 <div className="block">
@@ -269,7 +269,7 @@ class Player extends Component {
                             </button>
 
                             <button
-                                className="px-6 py-4 font-bold text-6xl rounded shadow text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400 active:text-green-500"
+                                className="px-6 py-4 font-bold text-6xl rounded text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400 active:text-green-500"
                                 onClick={this.handlePlayPause}
                             >
                                 {playing ? (
@@ -280,7 +280,7 @@ class Player extends Component {
                             </button>
 
                             <button
-                                className="px-6 py-4 font-bold text-3xl rounded shadow text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400 active:text-blue-500"
+                                className="px-6 py-4 font-bold text-3xl rounded text-gray-900 hover:text-gray-700 dark:text-white dark:hover:text-gray-400 active:text-blue-500"
                                 onClick={this.handleSkipForward}
                             >
                                 <div className="block">
