@@ -27,12 +27,16 @@ class Player extends Component {
             chapterIndex: 0,
             chapterTitle: '',
             chapterUrl: '',
+            sleepTimerActive: 0,
+            sleepTime: 25,
         }
 
         this.loadChapter = this.loadChapter.bind(this) // allows me to use this down the inheritance chain
 
         this.lastChapterKey = this.props.localStorageNamespace + '-lastChapter'
         this.lastBookKey = this.props.localStorageNamespace + '-lastBook'
+
+        this.sleepTimeout = null
     }
 
     handleToggleDevControls = () => {
@@ -137,7 +141,7 @@ class Player extends Component {
     }
 
     handleEnded = () => {
-        this.setState({ playing: this.state.loop })
+        this.setState({ playing: false })
     }
 
     handleDuration = (duration) => {
@@ -178,6 +182,24 @@ class Player extends Component {
 
     ref = (player) => {
         this.player = player
+    }
+
+    setSleepTimer = () => {
+        if (this.state.sleepTimerActive) {
+            this.setState({ sleepTimerActive: false })
+            clearTimeout(this.sleepTimeout)
+        } else {
+            this.setState({ sleepTimerActive: true })
+            this.sleepTimeout = setTimeout(() => {
+                this.handlePause()
+                this.setState({ sleepTimerActive: false })
+            }, this.state.sleepTime * 1000 * 60)
+        }
+    }
+
+    setSleepTime = (e) => {
+        this.setState({ sleepTime: e.target.value, sleepTimerActive: false })
+        clearTimeout(this.sleepTimeout)
     }
 
     // getLastChapterFromClient = () => {
@@ -229,11 +251,6 @@ class Player extends Component {
         return (
             <div className="mx-auto md:w-full lg:max-w-prose">
                 <div>
-                    <p className="mb-4 text-md font-serif dark:text-gray-100">
-                        <span className="font-bold">Bedtime thought: </span>
-                        <span>{this.props.affirmation}</span>
-                    </p>
-
                     <select
                         className="w-full my-4 p-2 bg-gray-200 dark:bg-gray-700 dark:text-gray-100"
                         onChange={this.handleBookSelection}
@@ -243,7 +260,7 @@ class Player extends Component {
                         })}
                     </select>
 
-                    <h2 className="font-serif font-bold text-4xl dark:text-gray-100">
+                    <h2 className="font-serif font-bold text-2xl md:text-4xl dark:text-gray-100">
                         {this.state.bookTitle.length > 0 ? this.state.bookTitle : 'No Book Selected'}
                     </h2>
                     <div className="chapter-select py-4 w-full box-border">
@@ -314,11 +331,11 @@ class Player extends Component {
                                 // onError={(e) => console.log('onError', e)}
                                 // onProgress={this.handleProgress}
                                 // onDuration={this.handleDuration}
-                                // onEnded={this.handleEnded}
+                                onEnded={this.handleEnded}
                             />
                         </div>
 
-                        <div className="flex justify-between w-full sm:w-1/2 mx-auto mt-6 my-2 p-2 rounded bg-gray-100 dark:bg-gray-800 dark:text-gray-200">
+                        {/* <div className="flex justify-between w-full sm:w-1/2 mx-auto mt-6 my-2 p-2 rounded bg-gray-100 dark:bg-gray-800 dark:text-gray-200">
                             <label htmlFor="volume" className="mr-2">
                                 Volume
                             </label>
@@ -332,9 +349,9 @@ class Player extends Component {
                                 value={volume}
                                 onChange={this.handleVolumeChange}
                             />
-                        </div>
+                        </div> */}
 
-                        <div className="flex justify-between w-full sm:w-1/2 mx-auto p-2 rounded bg-gray-100 dark:bg-gray-800 dark:text-gray-200">
+                        {/* <div className="flex justify-between w-full sm:w-1/2 mx-auto p-2 rounded bg-gray-100 dark:bg-gray-800 dark:text-gray-200">
                             <label htmlFor="seek" className="mr-2">
                                 Seek
                             </label>
@@ -352,15 +369,51 @@ class Player extends Component {
                                 onMouseUp={this.handleSeekMouseUp}
                                 onTouchEnd={this.handleSeekMouseUp}
                             />
-                        </div>
+                        </div> */}
                     </div>
 
-                    <button
+                    <div className="my-4 flex justify-between md:justify-center md:space-x-4">
+                        <button
+                            className={
+                                (this.state.sleepTimerActive
+                                    ? 'bg-blue-900 hover:bg-blue-800 text-gray-100'
+                                    : 'bg-blue-700 hover:bg-blue-600 text-gray-100') +
+                                ' px-4 py-2 font-bold rounded shadow active:bg-blue-500'
+                            }
+                            onClick={this.setSleepTimer}
+                        >
+                            {this.state.sleepTimerActive ? 'Stop' : 'Start'} Sleep Timer{' '}
+                            {this.state.sleepTimerActive ? (
+                                <span className="pl-2">
+                                    <i className="ci-moon"></i>
+                                </span>
+                            ) : (
+                                ''
+                            )}
+                        </button>
+
+                        <select
+                            className="p-2 bg-gray-200 dark:bg-gray-700 dark:text-gray-100"
+                            onChange={this.setSleepTime}
+                            value={this.state.sleepTime}
+                        >
+                            {[5, 10, 15, 20, 25, 30, 35, 40, 45, 50].map((number) => {
+                                return <option value={number}>{number} min.</option>
+                            })}
+                        </select>
+                    </div>
+
+                    <p className="my-6 text-md md:text-xl md:text-center md:mt-12 font-serif dark:text-gray-100">
+                        <span className="font-bold text-gray-500">Bedtime thought: </span>
+                        <span>{this.props.affirmation}</span>
+                    </p>
+
+                    {/* <button
                         className="mt-8 px-4 py-2 font-bold rounded shadow dark:bg-gray-100 dark:hover:bg-gray-200 active:bg-blue-500"
                         onClick={this.handleToggleDevControls}
                     >
                         {this.state.devControls ? 'Hide' : 'Show'} Dev Controls
-                    </button>
+                    </button> */}
                 </div>
                 <div
                     className="text-left dark:text-white"
