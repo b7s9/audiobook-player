@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactPlayer from 'react-player'
-import Duration from './duration'
+// import Duration from './duration'
 import ChapterListing from './chapter-listing'
 import data from '../book-data.json'
 
@@ -241,9 +241,9 @@ class Player extends Component {
             volume,
             muted,
             loop,
-            played,
-            loaded,
-            duration,
+            // played,
+            // loaded,
+            // duration,
             playbackRate,
             pip,
         } = this.state
@@ -334,42 +334,6 @@ class Player extends Component {
                                 onEnded={this.handleEnded}
                             />
                         </div>
-
-                        {/* <div className="flex justify-between w-full sm:w-1/2 mx-auto mt-6 my-2 p-2 rounded bg-gray-100 dark:bg-gray-800 dark:text-gray-200">
-                            <label htmlFor="volume" className="mr-2">
-                                Volume
-                            </label>
-                            <input
-                                className="dark:border-gray-500"
-                                name="volume"
-                                type="range"
-                                min={0}
-                                max={1}
-                                step="any"
-                                value={volume}
-                                onChange={this.handleVolumeChange}
-                            />
-                        </div> */}
-
-                        {/* <div className="flex justify-between w-full sm:w-1/2 mx-auto p-2 rounded bg-gray-100 dark:bg-gray-800 dark:text-gray-200">
-                            <label htmlFor="seek" className="mr-2">
-                                Seek
-                            </label>
-                            <input
-                                className="dark:border-gray-500"
-                                name="seek"
-                                type="range"
-                                min={0}
-                                max={0.999999}
-                                step="any"
-                                value={played}
-                                onMouseDown={this.handleSeekMouseDown}
-                                onTouchStart={this.handleSeekMouseDown}
-                                onChange={this.handleSeekChange}
-                                onMouseUp={this.handleSeekMouseUp}
-                                onTouchEnd={this.handleSeekMouseUp}
-                            />
-                        </div> */}
                     </div>
 
                     <div className="my-4 flex justify-between md:justify-center md:space-x-4">
@@ -407,106 +371,6 @@ class Player extends Component {
                         <span className="font-bold text-gray-500">Bedtime thought: </span>
                         <span>{this.props.affirmation}</span>
                     </p>
-
-                    {/* <button
-                        className="mt-8 px-4 py-2 font-bold rounded shadow dark:bg-gray-100 dark:hover:bg-gray-200 active:bg-blue-500"
-                        onClick={this.handleToggleDevControls}
-                    >
-                        {this.state.devControls ? 'Hide' : 'Show'} Dev Controls
-                    </button> */}
-                </div>
-                <div
-                    className="text-left dark:text-white"
-                    style={{
-                        display: this.state.devControls ? 'block' : 'none',
-                    }}
-                >
-                    <table className="mt-4">
-                        <tbody>
-                            <tr className="my-2">
-                                <th>
-                                    <label htmlFor="muted">Muted</label>
-                                </th>
-                                <td>
-                                    <input
-                                        className="form-tick appearance-none h-4 w-4 border border-gray-300 dark:border-gray-500 rounded checked:bg-green-600 checked:border-transparent focus:outline-none"
-                                        id="muted"
-                                        type="checkbox"
-                                        checked={muted}
-                                        onChange={this.handleToggleMuted}
-                                    />
-                                </td>
-                            </tr>
-                            <tr className="my-2">
-                                <th>
-                                    <label htmlFor="loop">Loop</label>
-                                </th>
-                                <td>
-                                    <input
-                                        className="form-tick appearance-none h-4 w-4 border border-gray-300 dark:border-gray-500 rounded checked:bg-green-600 checked:border-transparent focus:outline-none"
-                                        id="loop"
-                                        type="checkbox"
-                                        checked={loop}
-                                        onChange={this.handleToggleLoop}
-                                    />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Played</th>
-                                <td>
-                                    <progress max={1} value={played} />
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>Loaded</th>
-                                <td>
-                                    <progress max={1} value={loaded} />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <section className="section">
-                        <h2>State</h2>
-
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <th>playing</th>
-                                    <td>{playing ? 'true' : 'false'}</td>
-                                </tr>
-                                <tr>
-                                    <th>volume</th>
-                                    <td>{volume.toFixed(3)}</td>
-                                </tr>
-                                <tr>
-                                    <th>played</th>
-                                    <td>{played.toFixed(3)}</td>
-                                </tr>
-                                <tr>
-                                    <th>loaded</th>
-                                    <td>{loaded.toFixed(3)}</td>
-                                </tr>
-                                <tr>
-                                    <th>duration</th>
-                                    <td>
-                                        <Duration seconds={duration} />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>elapsed</th>
-                                    <td>
-                                        <Duration seconds={duration * played} />
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>remaining</th>
-                                    <td>
-                                        <Duration seconds={duration * (1 - played)} />
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </section>
                 </div>
             </div>
         )
