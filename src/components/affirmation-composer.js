@@ -12,7 +12,6 @@ class AffirmationComposer extends Component {
     }
 
     saveAffirmationToLocalStorage = () => {
-        window.fathom.trackGoal('HFZVKEJR', 0)
         localStorage.setItem(this.props.storageKey, this.state.affirmation)
         this.props.hideMe()
     }
